@@ -1,9 +1,15 @@
 #include <stdio.h>
-#include <malloc.h>
 #include <time.h>
 #include <math.h>
 #include "ACO_API/API.h"
 #include "bagAPI.h"
+
+
+#if defined(__MACH__)
+#include <stdlib.h>
+#else
+#include <malloc.h>
+#endif
 
 
 int main() {
