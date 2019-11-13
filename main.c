@@ -112,13 +112,16 @@ int main() {
 
         //Run ant simulation
         int p = 10000; //Population size
-        int g = 100; //Generation size
-        float e = 0.6; //Evaporation rate (multiplier between each run)
-        float m = 0.0001; //Amount of pheromone deposited according to fitness
+        int g = 12; //Generation size
+        float e = 0.95; //Evaporation rate (multiplier between each run)
+        float m = 0.001; //Amount of pheromone deposited according to fitness
 
         float bestFitness = 0;
         float bestAntWeight = 0;
         int bestAntValue = 0;
+        Ant bestAnt;
+        bestAnt.pathLength = 1;
+        bestAnt.nodePath = malloc(1 * sizeof(int));
 
         for (int generation = 0; generation < p / g; generation++) {
             Ant *ants = malloc(g * sizeof(Ant));
@@ -153,15 +156,19 @@ int main() {
                     fitnesses[antIndex] *= vanCapacity / totalWeight;
                 }
 
-                fitnesses[antIndex] *= fitnesses[antIndex];
-                fitnesses[antIndex] *= fitnesses[antIndex];
-                fitnesses[antIndex] *= fitnesses[antIndex];
+                fitnesses[antIndex] = pow(fitnesses[antIndex], 8);
 
 
 
 
 
                 if (fitnesses[antIndex] > bestFitness) {
+                    bestAnt.pathLength = ants[antIndex].pathLength;
+                    bestAnt.nodePath = realloc(bestAnt.nodePath, bestAnt.pathLength * sizeof(int));
+                    for (int i = 0; i < ants[antIndex].pathLength; i++) {
+                        bestAnt.nodePath[i] = ants[antIndex].nodePath[i];
+                    }
+
                     bestFitness = fitnesses[antIndex];
                     bestAntWeight = loadedWeight;
                     bestAntValue = loadedValue;
