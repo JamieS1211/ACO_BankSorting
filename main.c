@@ -104,7 +104,7 @@ int main() {
                             //START node - To in or out state of first bag
                             network.nodes[nodeIndex].pathCount = 2;
                         } else if (nodeIndex == network.nodeCount - 1) {
-                            //END node - Can't go anywher
+                            //END node - Can't go anywhere
                             network.nodes[nodeIndex].pathCount = 0;
                         } else if ((nodeIndex + nodeIndex % 2) / 2 == bagCount) {
                             //Nodes for last bag - To end node
